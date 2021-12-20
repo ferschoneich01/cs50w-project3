@@ -1,0 +1,76 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+    {% if menu %}
+        <div class="menu" style="margin-top: 20px;">
+            <table class="table table-dark">
+                <thead>
+                    <tr style="height: 70px;">
+                        <th id="menu-title" scope="row" colspan="3" style="width: 100%; height: 100%; text-align: center;"><h2 style="height: 100%; font-size: 50px; font-family:'Imperial Script', cursive;">Menú</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for meal in menu %}
+                        <tr>
+                            <th colspan="3" class="table-secondary" style="color: black;">{{ meal }}</th>
+                        </tr>
+                        {% for mealType1 in menu|get_item:meal %}
+                            <tr>
+                                <td scope="row">{{ mealType1 }}</td>
+                                {% if prices %}
+                                    {% for item in prices %}
+                                        {% for mealType2 in item.meal_types %}
+                                            {% if mealType2 == mealType1 %}
+                                                <td>{{ item.size }} C${{ item.price }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </tr>
+                            {% if "*" in mealType1 %}
+                                {% if sub_additions %}
+                                    {% for item in sub_additions %}
+                                        {% if "*" in item %}
+                                            {% for item2 in sub_additions|get_item:item %}
+                                                {% if "Cheese" in item2 %}
+                                                {% else %}
+                                                <tr>
+                                                    <td scope="row">&nbsp;&nbsp;&nbsp; - Add {{ item2 }}</td>
+                                                </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if meal == "Sub" %}
+                            <tr>
+                                <td scope="row">&nbsp;&nbsp;&nbsp; - Add Cheese to any sub (50c)</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+    {% if toppings %}
+        <div class="menu" style="margin-top: 20px;">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th id="toppings-title" scope="row" colspan="3"><h2 style="height: 100%; font-size: 30px; font-family:'Imperial Script', cursive;">Ingredientes</h2></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in toppings %}
+                        <tr scope="row">
+                            <td>{{ item.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'orders/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+.card{
+    margin-top:20px;
+    margin-left: 45%;
+    padding: 20px;
+    background-color: rgba(20, 18, 18, 0.705);
+    color: blanchedalmond;
+}  
+@media (max-width: 600px) {
+  
+    .card {
+    margin-left: 0;
+
+  }
+}
+
+</style>
+    <div class="card border-primary">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4" ><h3 style="margin-left: 30%;">¡Bienvenido Nuevamente!</h3></legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-success" type="submit" style="margin-left: 37%; margin-bottom: 5px; margin-top: 5px;">Iniciar sesion</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Necesitas una cuentas? <a class="ml-2" href="{% url 'register' %}">Registrarme ahora</a>
+                </small>
+            </div>
+    </div>  
+    
+{% endblock content %}

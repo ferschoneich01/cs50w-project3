@@ -1,0 +1,12 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+<div style="color: blanchedalmond;">
+    <h2>Sesion Cerrada ¡Te esperamos pronto!</h2>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Iniciar sesion</a>
+        </small>
+    </div>
+
+</div>
+{% endblock content %}

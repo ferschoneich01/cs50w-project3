@@ -1,0 +1,56 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+    <table class="table table-hover table-dark" style="margin-top: 10px;">
+        <tr class="text-center">
+            <th>No.</th>
+            <th>Item</th>
+            <th>Precio</th>
+        </tr>
+        {% for item in order.get_cart_items %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {{ item.item.size }} {{ item.item.meal_type }}
+                    <span class="float-right">
+                        <a href="{% url 'shopping_cart:delete_item' item.id %}" data-balloon="remove this item from cart" 
+                            class="text-danger" onclick="return confirm_delete();">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </span>
+                </td>
+                <td>C${{ item.item.price }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3"> Aún no ha agregado ningún elemento. </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            {% if order.get_cart_total != None %}
+                <td colspan="2">
+                    <strong class="pull-right">Orden Total:</strong>
+                </td>
+                <td colspan="1">
+                    C$<strong>{{ order.get_cart_total }}</strong>
+                </td>
+            {% endif %}
+        </tr>
+        <tr>
+            <td colspan="1">
+                <a href="{% url 'orders-create' %}" class="btn btn-warning pull-left">
+                    {% if order %}Continuar comprando{% else %}Añadir item al carrito {% endif %}
+                </a>
+            </td>
+            <td colspan="2">
+                {% if order.get_cart_items %}
+                    <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn btn-primary">Proceder al pago</a>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <script>
+        function confirm_delete() {
+            return confirm("¿Quieres eliminar este artículo del carrito?");
+        }
+    </script>
+{% endblock content %}

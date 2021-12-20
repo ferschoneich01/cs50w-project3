@@ -1,0 +1,40 @@
+{% extends 'orders/base.html' %}
+{% block content %}
+    <div>
+        <table class="table table-dark" style="margin-top: 10px;">
+            <tr>
+                <th>Fecha de orden:</th>
+                <th>Codigo</th>
+                <th>Items</th>
+                <th>Precio</th>
+            </tr>
+            {% for order in my_orders %}
+                <tr>
+                    <td>{{ order.date_ordered }}</td>
+                    <td>{{ order.ref_code }}</td>
+                    <td>
+                        <ul>
+                            {% for item in order.items.all %}
+                                <li>
+                                    {{ item.item }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>${{ order.get_cart_total }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4"> Todavia no hay ordenes.</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4">
+                    <a href="{% url 'orders-create' %}" style="color:black;" class="btn btn-warning pull-left">
+                        {% if not order %}Continuar comprando{% else %}Añadir Item al carrito {% endif %}
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}
