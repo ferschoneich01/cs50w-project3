@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
             $.ajax({
                 url: url_size,
                 data: {
-                    'meal_type': 0
+                    'meal_type': -1
                 },
                 success: function (data) {
                     $("#id_size").html(data);

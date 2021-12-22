@@ -11,8 +11,8 @@ El administrador de Django permite que un superusuario acceda al contenido del m
 
 Puedes probar realizar tu orden con esta tarjeta ejemplo
 Number: 4242 4242 4242 4242
-Expiry Date: fecha futura
-CVC:  3 numeros
-ZIP:  5 numeros
-
+Expiry Date: Any date in the future
+CVC: Any 3 numbers
+ZIP: Any 5 numbers
+Success! Got token: 
 
